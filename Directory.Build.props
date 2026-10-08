@@ -1,0 +1,13 @@
+<Project>
+
+  <PropertyGroup>
+    <Deterministic>true</Deterministic>
+    <Authors>Yuriy Zaletskyy</Authors>
+    <!--
+      Bin folder of an Acumatica 2026 R2 site or installation. Override per machine with
+      -p:AcumaticaBinPath=... or an environment variable of the same name.
+    -->
+    <AcumaticaBinPath Condition="'$(AcumaticaBinPath)' == ''">C:\Program Files\Acumatica ERP\Files\Bin</AcumaticaBinPath>
+  </PropertyGroup>
+
+</Project>

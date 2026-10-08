@@ -1,0 +1,34 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    Acumatica 2026 R2 customization library. It references the platform assemblies from
+    $(AcumaticaBinPath), see Directory.Build.props, and never copies them to the output.
+  -->
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <LangVersion>12.0</LangVersion>
+    <RootNamespace>Larkfield.POMailAttachments</RootNamespace>
+    <AssemblyName>Larkfield.POMailAttachments</AssemblyName>
+    <Version>0.1.0</Version>
+    <Product>PO Mail Attachments</Product>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\Larkfield.POMailAttachments.Core\**\*.cs"
+             Exclude="..\Larkfield.POMailAttachments.Core\bin\**;..\Larkfield.POMailAttachments.Core\obj\**"
+             LinkBase="Core" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="PX.Common" HintPath="$(AcumaticaBinPath)\PX.Common.dll" Private="false" />
+    <Reference Include="PX.Common.Std" HintPath="$(AcumaticaBinPath)\PX.Common.Std.dll" Private="false" />
+    <Reference Include="PX.Data" HintPath="$(AcumaticaBinPath)\PX.Data.dll" Private="false" />
+    <Reference Include="PX.Data.BQL.Fluent" HintPath="$(AcumaticaBinPath)\PX.Data.BQL.Fluent.dll" Private="false" />
+    <Reference Include="PX.Objects" HintPath="$(AcumaticaBinPath)\PX.Objects.dll" Private="false" />
+  </ItemGroup>
+
+  <Target Name="LRKFCheckAcumaticaBin" BeforeTargets="ResolveAssemblyReferences" Condition="!Exists('$(AcumaticaBinPath)\PX.Data.dll')">
+    <Error Text="PX.Data.dll was not found in '$(AcumaticaBinPath)'. Point AcumaticaBinPath at the Bin folder of an Acumatica 2026 R2 site, for example: dotnet build -p:AcumaticaBinPath=&quot;D:\Sites\MySite\Bin&quot;" />
+  </Target>
+
+</Project>
